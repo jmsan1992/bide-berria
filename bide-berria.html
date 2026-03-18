@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bide Berria Asesores — Asesoría Corporativa y Estructuración de Capital</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #162040;
+    --navy-light: #1e2f55;
+    --navy-mid: #243562;
+    --gold: #C9A96E;
+    --gold-light: #d9bf96;
+    --gold-pale: #f5ede0;
+    --white: #FFFFFF;
+    --off-white: #F5F2EC;
+    --gray: #A8BBDA;
+    --border: rgba(201,169,110,0.25);
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'Jost', system-ui, sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; font-size: 20px; }
+  body {
+    font-family: var(--sans);
+    background: var(--navy);
+    color: var(--white);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.4rem 5%;
+    background: rgba(22, 32, 64, 0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(201,169,110,0.12);
+    transition: padding 0.3s;
+  }
+  nav.scrolled { padding: 1rem 5%; }
+  .nav-logo {
+    display: flex; align-items: center; gap: 14px; cursor: pointer;
+    text-decoration: none; color: inherit;
+  }
+  .logo-mark {
+    width: 44px; height: 44px;
+    border: 1.5px solid var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--serif); font-size: 18px; font-weight: 600;
+    color: var(--gold); letter-spacing: -1px;
+    flex-shrink: 0;
+  }
+  .logo-text { display: flex; flex-direction: column; line-height: 1; }
+  .logo-text-main { font-family: var(--serif); font-size: 18px; font-weight: 500; letter-spacing: 0.06em; color: var(--white); }
+  .logo-text-sub { font-size: 10px; font-weight: 400; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-top: 3px; }
+  .nav-links { display: flex; gap: 2.5rem; align-items: center; }
+  .nav-link {
+    font-size: 13px; font-weight: 500; letter-spacing: 0.14em;
+    text-transform: uppercase; color: rgba(255,255,255,0.88);
+    cursor: pointer; transition: color 0.2s;
+    background: none; border: none;
+    text-decoration: none;
+  }
+  .nav-link:hover, .nav-link.active { color: var(--gold); }
+  .nav-cta {
+    font-size: 12px; font-weight: 600; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--gold);
+    border: 1px solid rgba(201,169,110,0.5);
+    padding: 0.65rem 1.6rem; cursor: pointer;
+    transition: all 0.25s; background: none;
+  }
+  .nav-cta:hover { background: var(--gold); color: var(--navy); }
+  .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
+  .nav-hamburger span { width: 22px; height: 1.5px; background: var(--gold); display: block; transition: all 0.3s; }
+  .mobile-menu { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: var(--navy); z-index: 200; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu-close { position: absolute; top: 1.5rem; right: 5%; font-size: 24px; color: var(--gold); cursor: pointer; background: none; border: none; }
+  .mobile-menu .nav-link { font-size: 14px; color: var(--white); }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh; display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative; overflow: hidden;
+    padding-top: 80px;
+  }
+  .hero-image-col {
+    position: relative; overflow: hidden;
+    background: linear-gradient(135deg, #0d1730 0%, #1a2548 100%);
+  }
+  .hero-img {
+    width: 100%; height: 100%; object-fit: cover;
+    opacity: 0.6; display: block;
+    background: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=900') center/cover no-repeat;
+    min-height: 600px;
+  }
+  .hero-img-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to right, rgba(22,32,64,0.2), rgba(22,32,64,0.7));
+  }
+  .hero-content-col {
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 6rem 6% 6rem 5%;
+    background: var(--navy);
+    position: relative;
+  }
+  .hero-content-col::before {
+    content: ''; position: absolute; left: 0; top: 10%; bottom: 10%;
+    width: 1px; background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+  }
+  .hero-eyebrow {
+    font-size: 12px; font-weight: 500; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--gold);
+    margin-bottom: 1.8rem;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .hero-eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--gold); }
+  .hero-title {
+    font-family: var(--serif); font-weight: 400;
+    font-size: clamp(3.2rem, 5vw, 5rem);
+    line-height: 1.08; letter-spacing: -0.01em;
+    color: var(--white); margin-bottom: 0.4rem;
+  }
+  .hero-title-accent {
+    font-family: var(--serif); font-weight: 400;
+    font-size: clamp(1.3rem, 2vw, 1.8rem);
+    color: var(--gold); letter-spacing: 0.04em;
+    margin-bottom: 2.4rem;
+  }
+  .hero-text {
+    font-size: 19px; font-weight: 400; line-height: 1.75;
+    color: rgba(255,255,255,0.92); max-width: 480px;
+    margin-bottom: 2.8rem;
+  }
+  .hero-credential {
+    display: flex; align-items: center; gap: 14px;
+    border-top: 1px solid var(--border);
+    padding-top: 2rem; margin-bottom: 2.8rem;
+  }
+  .hero-credential-line { width: 1px; height: 36px; background: var(--gold); }
+  .hero-credential-text { font-family: var(--serif); font-style: italic; font-size: 18px; color: var(--gold-light); }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 13px; font-weight: 600; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--navy);
+    background: var(--gold); border: none; cursor: pointer;
+    padding: 1.1rem 2.2rem; transition: all 0.25s;
+  }
+  .btn-primary:hover { background: var(--gold-light); }
+  .btn-outline {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 13px; font-weight: 600; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--gold);
+    background: transparent; border: 1px solid rgba(201,169,110,0.5);
+    cursor: pointer; padding: 1.1rem 2.2rem; transition: all 0.25s;
+  }
+  .btn-outline:hover { background: rgba(201,169,110,0.08); border-color: var(--gold); }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .arrow { font-size: 14px; }
+
+  /* ─── SECTIONS ─── */
+  section { padding: 7rem 7%; }
+  .section-dark { background: var(--navy); }
+  .section-darker { background: #0e1828; }
+  .section-mid { background: var(--navy-light); }
+
+  .section-label {
+    font-size: 12px; font-weight: 500; letter-spacing: 0.26em;
+    text-transform: uppercase; color: var(--gold);
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 1.8rem;
+  }
+  .section-label::before { content: ''; width: 24px; height: 1px; background: var(--gold); }
+  .section-title {
+    font-family: var(--serif); font-weight: 400;
+    font-size: clamp(2.4rem, 4vw, 3.4rem); line-height: 1.1;
+    color: var(--white); margin-bottom: 1.4rem;
+  }
+  .section-title .accent { color: var(--gold); }
+  .section-text {
+    font-size: 19px; font-weight: 400; line-height: 1.8;
+    color: rgba(255,255,255,0.92); max-width: 640px;
+  }
+
+  /* ─── CONTEXTO ─── */
+  .context-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 6rem;
+    align-items: center;
+  }
+  .context-visual {
+    position: relative; padding: 3rem;
+    border: 1px solid var(--border);
+    background: rgba(255,255,255,0.02);
+  }
+  .context-visual-quote {
+    font-family: var(--serif); font-size: 1.2rem; font-style: italic;
+    font-weight: 300; line-height: 1.7; color: var(--gold-light);
+    margin-bottom: 2rem;
+  }
+  .context-visual-source { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray); }
+  .fragment-list { display: flex; flex-direction: column; gap: 1rem; margin-top: 2rem; }
+  .fragment-item {
+    display: flex; align-items: flex-start; gap: 1rem;
+    padding: 1rem 1.2rem;
+    border-left: 2px solid transparent;
+    background: rgba(255,255,255,0.02);
+    font-size: 17px; color: rgba(255,255,255,0.90); line-height: 1.6;
+    transition: all 0.25s;
+  }
+  .fragment-item:hover { border-left-color: var(--gold); color: var(--white); }
+  .fragment-icon { color: var(--gold); font-size: 18px; margin-top: 1px; flex-shrink: 0; }
+
+  /* ─── PILARES ─── */
+  .pilares-header { text-align: center; max-width: 680px; margin: 0 auto 4rem; }
+  .pilares-header .section-label { justify-content: center; }
+  .pilares-header .section-label::before { display: none; }
+  .pilares-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; }
+  .pilar-card {
+    padding: 3.2rem 2.8rem; border: 1px solid var(--border);
+    position: relative; transition: background 0.3s;
+  }
+  .pilar-card + .pilar-card { border-left: none; }
+  .pilar-card:hover { background: rgba(201,169,110,0.04); }
+  .pilar-number {
+    font-family: var(--serif); font-size: 4rem; font-weight: 300;
+    color: rgba(201,169,110,0.15); line-height: 1;
+    margin-bottom: 1.2rem; display: block;
+  }
+  .pilar-tag {
+    font-size: 11px; letter-spacing: 0.20em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1rem;
+  }
+  .pilar-title {
+    font-family: var(--serif); font-size: 1.7rem; font-weight: 500;
+    line-height: 1.2; color: var(--white); margin-bottom: 1.4rem;
+  }
+  .pilar-text {
+    font-size: 17px; font-weight: 400; line-height: 1.75;
+    color: rgba(255,255,255,0.90);
+  }
+  .pilar-card-footer {
+    margin-top: 2.2rem; padding-top: 1.4rem;
+    border-top: 1px solid rgba(201,169,110,0.15);
+    font-size: 11px; color: var(--gold); letter-spacing: 0.1em;
+    cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
+  }
+  .pilares-footer {
+    text-align: center; margin-top: 0;
+    padding: 2rem 3rem;
+    background: rgba(201,169,110,0.06);
+    border: 1px solid var(--border); border-top: none;
+  }
+  .pilares-footer-text {
+    font-family: var(--serif); font-style: italic;
+    font-size: 1.1rem; color: var(--gold-light);
+  }
+
+  /* ─── STATS ─── */
+  .stats-section {
+    padding: 5rem 7%;
+    background: var(--navy-mid);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .stats-intro { text-align: center; margin-bottom: 3.5rem; }
+  .stats-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border: 1px solid var(--border);
+  }
+  .stat-item {
+    padding: 3rem 2.5rem; text-align: center;
+    border-right: 1px solid var(--border);
+    position: relative;
+  }
+  .stat-item:last-child { border-right: none; }
+  .stat-number {
+    font-family: var(--serif); font-size: 4.5rem; font-weight: 400;
+    color: var(--gold); line-height: 1; margin-bottom: 0.5rem;
+    display: block;
+  }
+  .stat-label {
+    font-size: 17px; font-weight: 500; letter-spacing: 0.06em;
+    color: var(--white); margin-bottom: 0.5rem;
+  }
+  .stat-sublabel { font-size: 13px; color: var(--gray); font-weight: 400; }
+  .stats-alliance {
+    text-align: center; margin-top: 2.5rem;
+    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  /* ─── PROCESO ─── */
+  .proceso-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 0; position: relative; margin-top: 4rem;
+  }
+  .proceso-grid::before {
+    content: ''; position: absolute;
+    top: 28px; left: 12.5%; right: 12.5%;
+    height: 1px; background: var(--border);
+  }
+  .proceso-step { padding: 0 2rem; text-align: center; }
+  .proceso-dot-wrap { position: relative; display: flex; justify-content: center; margin-bottom: 2rem; }
+  .proceso-dot {
+    width: 56px; height: 56px;
+    border: 1px solid var(--gold);
+    background: var(--navy);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--serif); font-size: 1.4rem; font-weight: 300;
+    color: var(--gold); position: relative; z-index: 1;
+  }
+  .proceso-step-title {
+    font-family: var(--serif); font-size: 1.5rem; font-weight: 500;
+    color: var(--gold); margin-bottom: 1rem;
+  }
+  .proceso-step-text {
+    font-size: 17px; font-weight: 400; line-height: 1.7;
+    color: rgba(255,255,255,0.90);
+  }
+  .proceso-footer {
+    margin-top: 4rem; padding: 2.4rem 3rem;
+    border: 1px solid var(--border); text-align: center;
+    background: rgba(201,169,110,0.03);
+  }
+  .proceso-footer-text {
+    font-family: var(--serif); font-size: 1.05rem; font-style: italic;
+    color: rgba(255,255,255,0.88); line-height: 1.7;
+  }
+  .proceso-footer-text span { color: var(--gold); font-style: normal; }
+
+  /* ─── CTA FINAL ─── */
+  .cta-section {
+    display: grid; grid-template-columns: 1fr 1fr;
+    min-height: 60vh; align-items: stretch;
+  }
+  .cta-image {
+    background: url('https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800') center/cover no-repeat;
+    position: relative; min-height: 400px;
+  }
+  .cta-image::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(to right, rgba(22,32,64,0.4), rgba(22,32,64,0.6));
+  }
+  .cta-logo-overlay {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+    z-index: 1; text-align: center;
+  }
+  .cta-logo-mark {
+    width: 80px; height: 80px; border: 1.5px solid rgba(201,169,110,0.6);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--serif); font-size: 32px; font-weight: 500;
+    color: rgba(201,169,110,0.8); margin: 0 auto 1rem;
+  }
+  .cta-logo-name { font-family: var(--serif); font-size: 1.1rem; color: rgba(201,169,110,0.8); letter-spacing: 0.08em; }
+  .cta-content {
+    background: #0e1828; padding: 6rem 5%;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .cta-bullets { list-style: none; margin: 2rem 0; display: flex; flex-direction: column; gap: 1.2rem; }
+  .cta-bullets li {
+    display: flex; align-items: flex-start; gap: 1rem;
+    font-size: 18px; font-weight: 400; line-height: 1.65;
+    color: rgba(255,255,255,0.92);
+  }
+  .cta-bullets li::before { content: '—'; color: var(--gold); flex-shrink: 0; margin-top: 1px; }
+  .cta-final-line {
+    font-family: var(--serif); font-style: italic; font-size: 1.2rem;
+    color: var(--gold-light); margin: 2rem 0;
+  }
+
+  /* ─── CONTACT FORM ─── */
+  .contact-section { padding: 6rem 10%; background: var(--navy); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 6rem; align-items: start; }
+  .contact-info-item { display: flex; gap: 1rem; margin-bottom: 1.8rem; align-items: flex-start; }
+  .contact-info-icon { color: var(--gold); font-size: 1rem; margin-top: 3px; }
+  .contact-info-label { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gray); margin-bottom: 4px; }
+  .contact-info-value { font-size: 18px; color: var(--white); font-weight: 400; }
+  .form-group { margin-bottom: 1.5rem; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+  label { font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gray); display: block; margin-bottom: 8px; }
+  input, select, textarea {
+    width: 100%; background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(201,169,110,0.2);
+    color: var(--white); font-family: var(--sans); font-size: 18px; font-weight: 400;
+    padding: 1rem 1.2rem; outline: none;
+    transition: border-color 0.2s;
+    -webkit-appearance: none;
+  }
+  input:focus, select:focus, textarea:focus { border-color: var(--gold); }
+  select option { background: var(--navy); }
+  textarea { resize: vertical; min-height: 110px; }
+
+  /* ─── NOSOTROS ─── */
+  .nosotros-hero {
+    padding: 10rem 7% 6rem; background: #0e1828;
+    position: relative; overflow: hidden;
+  }
+  .nosotros-hero::after {
+    content: ''; position: absolute; right: -5%;
+    top: -20%; width: 50%; height: 140%;
+    background: url('https://images.unsplash.com/photo-1560520653-9e0e4c89eb11?w=800') center/cover no-repeat;
+    opacity: 0.12;
+  }
+  .nosotros-hero-inner { position: relative; z-index: 1; max-width: 700px; }
+  .nosotros-hero h1 { font-family: var(--serif); font-size: clamp(2.5rem,4vw,3.8rem); font-weight: 300; line-height: 1.1; margin-bottom: 1.4rem; }
+  .nosotros-body-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+  .principles-list { display: flex; flex-direction: column; gap: 0; }
+  .principle-item {
+    padding: 1.8rem 0; border-bottom: 1px solid var(--border);
+    display: flex; gap: 1.5rem;
+  }
+  .principle-number { font-family: var(--serif); font-size: 1.4rem; color: var(--gold); flex-shrink: 0; margin-top: -3px; }
+  .principle-title { font-size: 18px; font-weight: 600; letter-spacing: 0.04em; color: var(--white); margin-bottom: 0.5rem; }
+  .principle-text { font-size: 17px; font-weight: 400; line-height: 1.7; color: rgba(255,255,255,0.88); }
+
+  /* ─── SERVICIOS ─── */
+  .servicio-block {
+    display: grid; grid-template-columns: 1fr 2fr; gap: 4rem;
+    padding: 5rem 7%; align-items: start;
+    border-bottom: 1px solid var(--border);
+  }
+  .servicio-block:nth-child(even) { background: rgba(255,255,255,0.01); }
+  .servicio-left {}
+  .servicio-pilar-tag {
+    font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1rem; display: block;
+  }
+  .servicio-title { font-family: var(--serif); font-size: 2.2rem; font-weight: 500; line-height: 1.15; color: var(--white); }
+  .servicio-divider { width: 28px; height: 1px; background: var(--gold); margin: 1.4rem 0; }
+  .servicio-right p {
+    font-size: 18px; font-weight: 400; line-height: 1.8; color: rgba(255,255,255,0.92);
+    margin-bottom: 1.5rem;
+  }
+  .servicio-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
+  .servicio-tag {
+    font-size: 12px; letter-spacing: 0.08em;
+    border: 1px solid var(--border); color: var(--gold);
+    padding: 0.45rem 1rem;
+  }
+
+  /* ─── PROCESO PAGE ─── */
+  .proceso-page-hero {
+    padding: 10rem 7% 6rem; background: #0e1828;
+    text-align: center;
+  }
+  .proceso-page-hero h1 { font-family: var(--serif); font-size: clamp(2.2rem,3.5vw,3.2rem); font-weight: 300; max-width: 700px; margin: 1rem auto 1.4rem; }
+  .proceso-detail-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0; }
+  .proceso-detail-card {
+    padding: 4rem 3.5rem; border: 1px solid var(--border);
+    position: relative; transition: background 0.3s;
+  }
+  .proceso-detail-card:nth-child(2), .proceso-detail-card:nth-child(4) { border-left: none; }
+  .proceso-detail-card:nth-child(3), .proceso-detail-card:nth-child(4) { border-top: none; }
+  .proceso-detail-card:hover { background: rgba(201,169,110,0.03); }
+  .proceso-phase-num {
+    font-family: var(--serif); font-size: 5rem; font-weight: 300;
+    color: rgba(201,169,110,0.12); line-height: 1; margin-bottom: 1rem;
+  }
+  .proceso-phase-tag { font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.8rem; }
+  .proceso-phase-title { font-family: var(--serif); font-size: 1.9rem; font-weight: 500; color: var(--white); margin-bottom: 1.2rem; }
+  .proceso-phase-text { font-size: 17px; font-weight: 400; line-height: 1.8; color: rgba(255,255,255,0.90); }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: #0a1020; padding: 4rem 7% 2rem;
+    border-top: 1px solid var(--border);
+  }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 4rem; margin-bottom: 3rem; }
+  .footer-brand p { font-size: 13px; font-weight: 300; line-height: 1.7; color: var(--gray); margin-top: 1.2rem; max-width: 340px; }
+  .footer-col-title { font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.4rem; }
+  .footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+  .footer-links li { font-size: 17px; color: var(--gray); cursor: pointer; transition: color 0.2s; }
+  .footer-links li:hover { color: var(--gold); }
+  .footer-bottom {
+    display: flex; justify-content: space-between; align-items: center;
+    padding-top: 2rem; border-top: 1px solid rgba(201,169,110,0.08);
+    font-size: 13px; color: rgba(138,154,184,0.6);
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 960px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-image-col { min-height: 320px; }
+    .hero-content-col::before { display: none; }
+    .context-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .pilares-grid { grid-template-columns: 1fr; }
+    .pilar-card + .pilar-card { border-left: 1px solid var(--border); border-top: none; }
+    .stats-grid { grid-template-columns: 1fr; }
+    .stat-item { border-right: none; border-bottom: 1px solid var(--border); }
+    .proceso-grid { grid-template-columns: 1fr 1fr; }
+    .proceso-grid::before { display: none; }
+    .cta-section { grid-template-columns: 1fr; }
+    .cta-image { min-height: 300px; }
+    .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .nosotros-body-grid { grid-template-columns: 1fr; }
+    .servicio-block { grid-template-columns: 1fr; gap: 2rem; }
+    .proceso-detail-grid { grid-template-columns: 1fr; }
+    .proceso-detail-card:nth-child(2), .proceso-detail-card:nth-child(4) { border-left: 1px solid var(--border); }
+    .proceso-detail-card:nth-child(3), .proceso-detail-card:nth-child(4) { border-top: none; }
+    .footer-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .nav-links { display: none; }
+    .nav-cta { display: none; }
+    .nav-hamburger { display: flex; }
+    .form-row { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 600px) {
+    section { padding: 5rem 5%; }
+    .proceso-grid { grid-template-columns: 1fr; }
+    .hero-btns { flex-direction: column; }
+    .btn-primary, .btn-outline { text-align: center; justify-content: center; }
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-eyebrow { animation: fadeUp 0.6s ease 0.1s both; }
+  .hero-title { animation: fadeUp 0.6s ease 0.2s both; }
+  .hero-title-accent { animation: fadeUp 0.6s ease 0.3s both; }
+  .hero-text { animation: fadeUp 0.6s ease 0.4s both; }
+  .hero-credential { animation: fadeUp 0.6s ease 0.5s both; }
+  .hero-btns { animation: fadeUp 0.6s ease 0.6s both; }
+</style>
+</head>
+<body>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-menu-close" onclick="closeMobileMenu()">✕</button>
+  <button class="nav-link" onclick="showPage('home'); closeMobileMenu();">Inicio</button>
+  <button class="nav-link" onclick="showPage('nosotros'); closeMobileMenu();">Nosotros</button>
+  <button class="nav-link" onclick="showPage('servicios'); closeMobileMenu();">Servicios</button>
+  <button class="nav-link" onclick="showPage('proceso'); closeMobileMenu();">Proceso</button>
+  <button class="nav-link" onclick="showPage('contacto'); closeMobileMenu();">Contacto</button>
+</div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <div class="nav-logo" onclick="showPage('home')">
+    <div class="logo-mark">ВВ</div>
+    <div class="logo-text">
+      <span class="logo-text-main">Bide Berria</span>
+      <span class="logo-text-sub">Asesores</span>
+    </div>
+  </div>
+  <div class="nav-links">
+    <button class="nav-link active" id="nav-home" onclick="showPage('home')">Inicio</button>
+    <button class="nav-link" id="nav-nosotros" onclick="showPage('nosotros')">Nosotros</button>
+    <button class="nav-link" id="nav-servicios" onclick="showPage('servicios')">Servicios</button>
+    <button class="nav-link" id="nav-proceso" onclick="showPage('proceso')">Proceso</button>
+    <button class="nav-link" id="nav-contacto" onclick="showPage('contacto')">Contacto</button>
+  </div>
+  <button class="nav-cta" onclick="showPage('contacto')">Iniciar Conversación</button>
+  <button class="nav-hamburger" onclick="openMobileMenu()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ══════════════════════════════════════
+     PAGE: HOME
+══════════════════════════════════════ -->
+<div class="page active" id="page-home">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-image-col">
+      <div class="hero-img"></div>
+      <div class="hero-img-overlay"></div>
+    </div>
+    <div class="hero-content-col">
+      <p class="hero-eyebrow">México · Alcance Internacional</p>
+      <h1 class="hero-title">Bide Berria<br>Asesores</h1>
+      <p class="hero-title-accent">Asesoría Corporativa y Estructuración de Capital</p>
+      <p class="hero-text">Una sola voz institucional para líderes empresariales que navegan transacciones estratégicas, decisiones de capital y protección de valor patrimonial.</p>
+      <div class="hero-credential">
+        <div class="hero-credential-line"></div>
+        <p class="hero-credential-text">Más de 40 años navegando el sistema financiero de México.</p>
+      </div>
+      <div class="hero-btns">
+        <button class="btn-primary" onclick="showPage('contacto')">Iniciar Conversación <span class="arrow">→</span></button>
+        <button class="btn-outline" onclick="showPage('servicios')">Nuestros Servicios</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTEXTO DEL MERCADO -->
+  <section class="section-darker" style="padding: 7rem 7%;">
+    <div class="context-grid">
+      <div>
+        <p class="section-label">Un Asesor. Una Dirección. Continuidad Total.</p>
+        <h2 class="section-title">Reduciendo el Costo de la <span class="accent">Fragmentación</span></h2>
+        <p class="section-text">En el mercado actual, la estrategia, el financiamiento y la ejecución operan en silos, obligando a los empresarios a negociar simultáneamente con asesores, bancos, inversionistas y abogados —cada uno defendiendo intereses separados sin una dirección unificada.</p>
+        <p class="section-text" style="margin-top:1.2rem;">Esta fragmentación genera fricción, erosiona el control estratégico y expone el patrimonio a riesgos en la negociación.</p>
+        <div style="margin-top:2.5rem; padding:1.8rem 2rem; border-left:2px solid var(--gold); background:rgba(201,169,110,0.04);">
+          <p style="font-family:var(--serif);font-style:italic;font-size:1.1rem;color:var(--gold-light);line-height:1.65;">Actuamos como una arquitectura financiera integrada, alineando la asesoría, la estructuración de capital y la originación bajo una sola dirección estratégica.</p>
+        </div>
+        <div style="margin-top:2.5rem;">
+          <button class="btn-primary" onclick="showPage('contacto')">Iniciar Conversación <span class="arrow">→</span></button>
+        </div>
+      </div>
+      <div class="context-visual">
+        <p class="context-visual-quote">"La mayoría de las transacciones no fracasan por falta de capital. Fracasan por falta de coherencia estratégica."</p>
+        <p class="context-visual-source">— Filosofía operativa de Bide Berria</p>
+        <div class="fragment-list">
+          <div class="fragment-item"><span class="fragment-icon">◆</span><span>Múltiples asesores con intereses no alineados</span></div>
+          <div class="fragment-item"><span class="fragment-icon">◆</span><span>Fricción estratégica en cada etapa del proceso</span></div>
+          <div class="fragment-item"><span class="fragment-icon">◆</span><span>Pérdida de control patrimonial en momentos críticos</span></div>
+          <div class="fragment-item"><span class="fragment-icon">◆</span><span>Decisiones de capital sin una visión estructural unificada</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- TRES PILARES -->
+  <section class="section-mid" style="padding-bottom:0;">
+    <div class="pilares-header">
+      <p class="section-label">Nuestros Tres Pilares Integrados</p>
+      <h2 class="section-title">Cada compromiso se apoya en tres capacidades que trabajan en conjunto</h2>
+    </div>
+    <div class="pilares-grid">
+      <div class="pilar-card">
+        <span class="pilar-number">01</span>
+        <p class="pilar-tag">Pilar 1 — Alianza Kreston FLS</p>
+        <h3 class="pilar-title">Finanzas Corporativas y Fusiones & Adquisiciones</h3>
+        <p class="pilar-text">Alcance global y acceso institucional para transiciones directas de propiedad, captación de capital y operaciones estratégicas. Asesoría en decisiones accionariales, procesos de compra o venta de empresas, levantamiento de capital y reconfiguración de estructuras corporativas.</p>
+        <div class="pilar-card-footer" onclick="showPage('servicios')">Ver servicio →</div>
+      </div>
+      <div class="pilar-card">
+        <span class="pilar-number">02</span>
+        <p class="pilar-tag">Pilar 2 — PiMX + MXC Capital</p>
+        <h3 class="pilar-title">Financiamiento Empresarial</h3>
+        <p class="pilar-text">Muchas empresas no carecen de financiamiento. Carecen de una estructura financiable. Transformamos empresas viables en estructuras financiables, diseñando la arquitectura de capital adecuada antes de vincularlas con las fuentes de financiamiento idóneas.</p>
+        <div class="pilar-card-footer" onclick="showPage('servicios')">Ver servicio →</div>
+      </div>
+      <div class="pilar-card">
+        <span class="pilar-number">03</span>
+        <p class="pilar-tag">Pilar 3 — Plataforma KONNECT</p>
+        <h3 class="pilar-title">Originación y Canalización de Capital</h3>
+        <p class="pilar-text">Red nacional de brokers de negocios en todo México, conectada con más de 40 instituciones financieras con mandatos diversos. Canalizamos cada empresa hacia las instituciones adecuadas a su etapa, perfil y requerimientos estratégicos.</p>
+        <div class="pilar-card-footer" onclick="showPage('servicios')">Ver servicio →</div>
+      </div>
+    </div>
+    <div class="pilares-footer">
+      <p class="pilares-footer-text">Estrategia, financiamiento y ejecución unificados bajo un solo asesor.</p>
+    </div>
+  </section>
+
+
+
+  <!-- MODELO OPERATIVO -->
+  <section class="section-darker">
+    <p class="section-label">Modelo Operativo</p>
+    <h2 class="section-title" style="max-width:700px;">Un Modelo Operativo Integral de <span class="accent">Extremo a Extremo</span></h2>
+    <p class="section-text" style="margin-bottom:1rem;">Bide Berria actúa como el orquestador central, unificando la asesoría corporativa, la estructuración financiera y la originación institucional bajo una sola visión estratégica.</p>
+    <div class="proceso-grid">
+      <div class="proceso-step">
+        <div class="proceso-dot-wrap"><div class="proceso-dot">1</div></div>
+        <p class="proceso-step-title">Diagnóstico</p>
+        <p class="proceso-step-text">Evaluación estratégica y posicionamiento patrimonial del negocio.</p>
+      </div>
+      <div class="proceso-step">
+        <div class="proceso-dot-wrap"><div class="proceso-dot">2</div></div>
+        <p class="proceso-step-title">Estructura</p>
+        <p class="proceso-step-text">Arquitectura financiera y optimización de riesgos corporativos.</p>
+      </div>
+      <div class="proceso-step">
+        <div class="proceso-dot-wrap"><div class="proceso-dot">3</div></div>
+        <p class="proceso-step-title">Negociación</p>
+        <p class="proceso-step-text">Gestión de contrapartes institucionales, bancos e inversionistas.</p>
+      </div>
+      <div class="proceso-step">
+        <div class="proceso-dot-wrap"><div class="proceso-dot">4</div></div>
+        <p class="proceso-step-title">Ejecución</p>
+        <p class="proceso-step-text">Cierre de operaciones y protección del valor patrimonial.</p>
+      </div>
+    </div>
+    <div class="proceso-footer">
+      <p class="proceso-footer-text"><span>Un solo asesor. Un solo proceso.</span> Coherencia estratégica continua desde la primera conversación hasta el cierre definitivo.</p>
+    </div>
+    <div style="text-align:center;margin-top:3rem;">
+      <button class="btn-outline" onclick="showPage('proceso')">Ver proceso completo →</button>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <div class="cta-section">
+    <div class="cta-image">
+      <div class="cta-logo-overlay">
+        <div class="cta-logo-mark">ВВ</div>
+        <p class="cta-logo-name">Bide Berria</p>
+      </div>
+    </div>
+    <div class="cta-content">
+      <p class="section-label">Las Decisiones Críticas Exigen</p>
+      <h2 class="section-title">Una Alianza <span class="accent">Estratégica</span></h2>
+      <p class="section-text">En cada momento determinante de la evolución de una empresa, una sola decisión puede definir su trayectoria patrimonial. Bide Berria existe para acompañar ese momento con claridad estratégica, acceso institucional y ejecución disciplinada.</p>
+      <ul class="cta-bullets">
+        <li>Estructurar decisiones con claridad estratégica</li>
+        <li>Ejecutar con el ecosistema institucional adecuado</li>
+        <li>Proteger el valor patrimonial del cliente a lo largo de todo el proceso</li>
+      </ul>
+      <p class="cta-final-line">Un solo asesor. Un solo criterio. Del diagnóstico al cierre.</p>
+      <button class="btn-primary" onclick="showPage('contacto')">Iniciar Conversación <span class="arrow">→</span></button>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo" style="cursor:default;">
+          <div class="logo-mark">ВВ</div>
+          <div class="logo-text">
+            <span class="logo-text-main">Bide Berria</span>
+            <span class="logo-text-sub">Asesores, S.A.P.I. de C.V.</span>
+          </div>
+        </div>
+        <p>Firma independiente de asesoría corporativa especializada en estructuración de capital, fusiones y adquisiciones y financiamiento empresarial. México, con alcance institucional nacional e internacional.</p>
+      </div>
+      <div>
+        <p class="footer-col-title">Navegación</p>
+        <ul class="footer-links">
+          <li onclick="showPage('home')">Inicio</li>
+          <li onclick="showPage('nosotros')">Nosotros</li>
+          <li onclick="showPage('servicios')">Servicios</li>
+          <li onclick="showPage('proceso')">Proceso</li>
+          <li onclick="showPage('contacto')">Contacto</li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-title">Servicios</p>
+        <ul class="footer-links">
+          <li onclick="showPage('servicios')">Finanzas Corporativas y M&A</li>
+          <li onclick="showPage('servicios')">Financiamiento Empresarial</li>
+          <li onclick="showPage('servicios')">Plataforma KONNECT</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Bide Berria Asesores, S.A.P.I. de C.V. Todos los derechos reservados.</span>
+      <span>México · Alcance Internacional</span>
+    </div>
+  </footer>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     PAGE: NOSOTROS
+══════════════════════════════════════ -->
+<div class="page" id="page-nosotros">
+  <div class="nosotros-hero">
+    <div class="nosotros-hero-inner">
+      <p class="section-label">Quiénes Somos</p>
+      <h1>Una Firma Construida para las Decisiones que Definen <span style="color:var(--gold);">Trayectorias Patrimoniales</span></h1>
+      <p style="font-size:19px;font-weight:400;line-height:1.8;color:rgba(255,255,255,0.90);margin-top:1.5rem;max-width:620px;">Bide Berria Asesores es una firma independiente de asesoría corporativa con más de cuatro décadas de presencia activa en el sistema financiero mexicano. No somos un banco. No somos un despacho de abogados. Somos la dirección estratégica que integra a todos los demás actores.</p>
+    </div>
+  </div>
+
+  <section class="section-dark">
+    <div class="nosotros-body-grid">
+      <div>
+        <p class="section-label">El Problema del Modelo Fragmentado</p>
+        <h2 class="section-title" style="font-size:2rem;">Cuando los asesores defienden intereses <span class="accent">distintos</span></h2>
+        <p class="section-text">En el modelo tradicional, el empresario se convierte en coordinador de un ecosistema desarticulado: negocia con el banco mientras el abogado revisa la estructura, el asesor financiero diseña una alternativa que el inversionista rechaza, y la empresa avanza sin una visión coherente.</p>
+        <p class="section-text" style="margin-top:1.2rem;">Esta fragmentación no es un defecto menor. En operaciones complejas, puede significar la diferencia entre un cierre exitoso y la erosión del valor patrimonial.</p>
+        <div style="margin-top:2.5rem;padding:2rem;border:1px solid var(--border);background:rgba(201,169,110,0.03);">
+          <p style="font-family:var(--serif);font-size:1.05rem;font-style:italic;color:var(--gold-light);line-height:1.7;">Bide Berria existe para ser la única voz que necesita escuchar. La que integra, ordena y ejecuta con un solo criterio estratégico.</p>
+        </div>
+      </div>
+      <div>
+        <p class="section-label">Principios de Trabajo</p>
+        <div class="principles-list">
+          <div class="principle-item">
+            <span class="principle-number">I</span>
+            <div>
+              <p class="principle-title">Claridad Estratégica</p>
+              <p class="principle-text">Cada compromiso comienza con un diagnóstico honesto. No diseñamos estructuras hasta comprender con precisión la situación real del negocio, sus fortalezas institucionales y sus objetivos patrimoniales.</p>
+            </div>
+          </div>
+          <div class="principle-item">
+            <span class="principle-number">II</span>
+            <div>
+              <p class="principle-title">Alineación de Intereses</p>
+              <p class="principle-text">Como firma independiente, nuestros intereses están alineados con los del cliente. No operamos con mandatos bancarios ni con incentivos de originación que distorsionen el consejo estratégico.</p>
+            </div>
+          </div>
+          <div class="principle-item">
+            <span class="principle-number">III</span>
+            <div>
+              <p class="principle-title">Protección del Valor Patrimonial</p>
+              <p class="principle-text">El objetivo final de cada operación es preservar y fortalecer el patrimonio del cliente. No cerramos transacciones por cerrarlas. Cerramos las correctas, en el momento correcto, bajo las condiciones correctas.</p>
+            </div>
+          </div>
+          <div class="principle-item">
+            <span class="principle-number">IV</span>
+            <div>
+              <p class="principle-title">Disciplina Institucional en la Ejecución</p>
+              <p class="principle-text">Cuarenta años de operación en el sistema financiero mexicano nos han dado algo que no se improvisa: saber cómo piensan las instituciones, qué valoran los inversionistas y cómo estructurar acuerdos que sobreviven el escrutinio institucional.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-darker" style="text-align:center;">
+    <p class="section-label" style="justify-content:center;">Cierre Institucional</p>
+    <h2 class="section-title" style="max-width:680px;margin:0 auto 1.5rem;">Acompañamos los momentos que <span class="accent">definen empresas</span></h2>
+    <p class="section-text" style="margin:0 auto 2.5rem;text-align:center;">En cada etapa crítica de la evolución empresarial —una transacción de capital, una adquisición estratégica, una reestructura corporativa— la firma está presente con el criterio institucional y el acceso necesarios para ejecutar con disciplina.</p>
+    <button class="btn-primary" onclick="showPage('contacto')">Iniciar una Conversación →</button>
+  </section>
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo" style="cursor:default;"><div class="logo-mark">ВВ</div><div class="logo-text"><span class="logo-text-main">Bide Berria</span><span class="logo-text-sub">Asesores, S.A.P.I. de C.V.</span></div></div>
+        <p>Firma independiente de asesoría corporativa. México, con alcance institucional nacional e internacional.</p>
+      </div>
+      <div><p class="footer-col-title">Navegación</p><ul class="footer-links"><li onclick="showPage('home')">Inicio</li><li onclick="showPage('nosotros')">Nosotros</li><li onclick="showPage('servicios')">Servicios</li><li onclick="showPage('proceso')">Proceso</li><li onclick="showPage('contacto')">Contacto</li></ul></div>
+      <div><p class="footer-col-title">Servicios</p><ul class="footer-links"><li onclick="showPage('servicios')">Finanzas Corporativas y M&A</li><li onclick="showPage('servicios')">Financiamiento Empresarial</li><li onclick="showPage('servicios')">Plataforma KONNECT</li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>© 2025 Bide Berria Asesores, S.A.P.I. de C.V.</span><span>México · Alcance Internacional</span></div>
+  </footer>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     PAGE: SERVICIOS
+══════════════════════════════════════ -->
+<div class="page" id="page-servicios">
+  <div class="nosotros-hero">
+    <div class="nosotros-hero-inner">
+      <p class="section-label">Nuestros Servicios</p>
+      <h1>Tres Capacidades. <span style="color:var(--gold);">Una Sola Dirección.</span></h1>
+      <p style="font-size:19px;font-weight:400;line-height:1.8;color:rgba(255,255,255,0.90);margin-top:1.5rem;max-width:620px;">La firma opera como una arquitectura financiera integrada que alinea estrategia corporativa, estructuración financiera y acceso institucional. Los tres servicios funcionan de forma integrada bajo una sola dirección estratégica.</p>
+    </div>
+  </div>
+
+  <div id="page-servicios-body">
+    <div class="servicio-block">
+      <div class="servicio-left">
+        <span class="servicio-pilar-tag">Pilar 1 — Alianza Kreston FLS</span>
+        <h2 class="servicio-title">Finanzas Corporativas y Fusiones & Adquisiciones</h2>
+        <div class="servicio-divider"></div>
+        <div style="margin-top:2rem;">
+          <p style="font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:var(--gray);margin-bottom:0.5rem;">Red Global</p>
+          <p style="font-family:var(--serif);font-size:2rem;color:var(--gold);font-weight:400;">100+ <span style="font-size:1rem;color:var(--gray);font-family:var(--sans);font-weight:400;">países</span></p>
+          <p style="font-family:var(--serif);font-size:2rem;color:var(--gold);font-weight:400;margin-top:0.3rem;">20K+ <span style="font-size:1rem;color:var(--gray);font-family:var(--sans);font-weight:400;">profesionales</span></p>
+          <p style="font-family:var(--serif);font-size:2rem;color:var(--gold);font-weight:400;margin-top:0.3rem;">80+ <span style="font-size:1rem;color:var(--gray);font-family:var(--sans);font-weight:400;">jurisdicciones legales</span></p>
+        </div>
+      </div>
+      <div class="servicio-right">
+        <p>La firma asesora en las decisiones accionariales más complejas del ciclo empresarial: procesos de compra o venta de empresas, levantamiento de capital, reestructuración corporativa y transiciones de propiedad. Estas no son decisiones que se toman solo una vez —definen la trayectoria patrimonial de las generaciones que siguen.</p>
+        <p>A través de la alianza con Kreston FLS, Bide Berria conecta a sus clientes con contrapartes estratégicas e inversionistas en más de 100 países, con el respaldo de una red de más de 20,000 profesionales especializados y cobertura legal en más de 80 jurisdicciones. Este alcance permite estructurar transacciones de alto valor con el rigor institucional que exigen los mercados internacionales.</p>
+        <p>Anclamos las transacciones estratégicas dentro de una red financiera y legal global, estructurando decisiones accionariales, de capital y de fusiones y adquisiciones con acceso a contrapartes internacionales, preservando el control y el valor en cada etapa.</p>
+        <div class="servicio-tags">
+          <span class="servicio-tag">Compra-Venta de Empresas</span>
+          <span class="servicio-tag">Levantamiento de Capital</span>
+          <span class="servicio-tag">Reestructuración Corporativa</span>
+          <span class="servicio-tag">Decisiones Accionariales</span>
+          <span class="servicio-tag">M&A Transfronterizo</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="servicio-block">
+      <div class="servicio-left">
+        <span class="servicio-pilar-tag">Pilar 2 — PiMX + MXC Capital</span>
+        <h2 class="servicio-title">Financiamiento Empresarial</h2>
+        <div class="servicio-divider"></div>
+        <div style="margin-top:2rem;padding:1.5rem;border:1px solid var(--border);background:rgba(201,169,110,0.03);">
+          <p style="font-family:var(--serif);font-style:italic;font-size:1rem;color:var(--gold-light);line-height:1.65;">"Muchas empresas no carecen de financiamiento. Carecen de una estructura financiable."</p>
+        </div>
+      </div>
+      <div class="servicio-right">
+        <p>El problema de financiamiento de la mayoría de las empresas mexicanas no es la falta de acceso al capital —es que su estructura corporativa y financiera no está preparada para acceder a él. Los bancos e instituciones financieras evalúan entidades, no solo proyectos. Una empresa operativamente sólida pero estructuralmente desordenada enfrentará rechazo o condiciones desventajosas.</p>
+        <p>Bide Berria diseña arquitecturas de capital que transforman empresas viables en entidades financiables. Antes de acercarse a cualquier institución de crédito, la firma optimiza la estructura corporativa y financiera —gobierno corporativo, separación de entidades, flujo de caja demostrable— para maximizar la probabilidad de acceso a capital y mejorar las condiciones de la transacción.</p>
+        <p>A través de alianzas con PiMX y MXC Capital, la firma tiene acceso a soluciones para situaciones complejas donde el crédito tradicional no corresponde a la realidad operativa de la empresa.</p>
+        <div class="servicio-tags">
+          <span class="servicio-tag">Arquitectura de Capital</span>
+          <span class="servicio-tag">Gobierno Corporativo</span>
+          <span class="servicio-tag">Estructuración Crediticia</span>
+          <span class="servicio-tag">Preparación Institucional</span>
+          <span class="servicio-tag">Financiamiento Alternativo</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="servicio-block">
+      <div class="servicio-left">
+        <span class="servicio-pilar-tag">Pilar 3 — Plataforma KONNECT</span>
+        <h2 class="servicio-title">Originación y Canalización de Capital</h2>
+        <div class="servicio-divider"></div>
+        <div style="margin-top:2rem;display:flex;flex-direction:column;gap:1rem;">
+          <div style="padding:1rem;border-left:2px solid var(--gold);padding-left:1.2rem;">
+            <p style="font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--gray);">Red Nacional</p>
+            <p style="font-size:18px;color:var(--white);font-weight:400;margin-top:4px;">Brokers en todo México</p>
+          </div>
+          <div style="padding:1rem;border-left:2px solid var(--gold);padding-left:1.2rem;">
+            <p style="font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--gray);">+40 Instituciones</p>
+            <p style="font-size:18px;color:var(--white);font-weight:400;margin-top:4px;">Socios con mandatos diversos</p>
+          </div>
+          <div style="padding:1rem;border-left:2px solid var(--gold);padding-left:1.2rem;">
+            <p style="font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--gray);">Vinculación Inteligente</p>
+            <p style="font-size:18px;color:var(--white);font-weight:400;margin-top:4px;">La empresa correcta con la institución adecuada</p>
+          </div>
+        </div>
+      </div>
+      <div class="servicio-right">
+        <p>No basta con tener acceso a capital. El acceso correcto depende de alinear el perfil estratégico de la empresa con el mandato específico de la institución financiera. Un fondo de private equity no evalúa con los mismos criterios que un banco de desarrollo, una SOFOM o un fondo de deuda estructurada.</p>
+        <p>A través de la Plataforma KONNECT, Bide Berria conecta a sus clientes con la red nacional de brokers de negocios y con más de 40 instituciones financieras socias, alineando el acceso al capital con la etapa, el perfil y los requerimientos estratégicos de la empresa.</p>
+        <p>Este no es un servicio de intermediación genérica. Es vinculación inteligente: comprender qué tipo de capital necesita la empresa, qué institución tiene el mandato adecuado, y cómo estructurar la presentación para maximizar la probabilidad de cierre.</p>
+        <div class="servicio-tags">
+          <span class="servicio-tag">Red Nacional de Brokers</span>
+          <span class="servicio-tag">+40 Instituciones</span>
+          <span class="servicio-tag">Fondos de Deuda</span>
+          <span class="servicio-tag">Banca de Desarrollo</span>
+          <span class="servicio-tag">Capital Privado</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="section-darker" style="text-align:center;">
+    <p class="section-label" style="justify-content:center;">Integración Total</p>
+    <h2 class="section-title" style="max-width:680px;margin:0 auto 1.5rem;">Los tres servicios operan como un sistema bajo <span class="accent">una sola dirección estratégica</span></h2>
+    <p class="section-text" style="margin:0 auto 2.5rem;text-align:center;">El valor de Bide Berria no reside en ninguno de los servicios por separado. Reside en la capacidad de orquestar los tres de forma coherente, con continuidad estratégica desde el diagnóstico inicial hasta el cierre definitivo de la operación.</p>
+    <button class="btn-primary" onclick="showPage('contacto')">Iniciar una Conversación →</button>
+  </section>
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand"><div class="nav-logo" style="cursor:default;"><div class="logo-mark">ВВ</div><div class="logo-text"><span class="logo-text-main">Bide Berria</span><span class="logo-text-sub">Asesores, S.A.P.I. de C.V.</span></div></div><p>Firma independiente de asesoría corporativa. México, con alcance institucional nacional e internacional.</p></div>
+      <div><p class="footer-col-title">Navegación</p><ul class="footer-links"><li onclick="showPage('home')">Inicio</li><li onclick="showPage('nosotros')">Nosotros</li><li onclick="showPage('servicios')">Servicios</li><li onclick="showPage('proceso')">Proceso</li><li onclick="showPage('contacto')">Contacto</li></ul></div>
+      <div><p class="footer-col-title">Servicios</p><ul class="footer-links"><li onclick="showPage('servicios')">Finanzas Corporativas y M&A</li><li onclick="showPage('servicios')">Financiamiento Empresarial</li><li onclick="showPage('servicios')">Plataforma KONNECT</li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>© 2025 Bide Berria Asesores, S.A.P.I. de C.V.</span><span>México · Alcance Internacional</span></div>
+  </footer>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     PAGE: PROCESO
+══════════════════════════════════════ -->
+<div class="page" id="page-proceso">
+  <div class="proceso-page-hero">
+    <p class="section-label" style="justify-content:center;">Nuestro Proceso</p>
+    <h1>Un Modelo Operativo Integral de <span style="color:var(--gold);">Extremo a Extremo</span></h1>
+    <p style="font-size:19px;font-weight:400;line-height:1.8;color:rgba(255,255,255,0.90);max-width:580px;margin:0 auto;">La firma acompaña a sus clientes desde el análisis estratégico inicial hasta la ejecución definitiva de la transacción, manteniendo coherencia estratégica en cada etapa del proceso.</p>
+  </div>
+
+  <section class="section-dark" style="padding:0;">
+    <div class="proceso-detail-grid">
+      <div class="proceso-detail-card">
+        <p class="proceso-phase-num">01</p>
+        <p class="proceso-phase-tag">Primera Fase</p>
+        <h3 class="proceso-phase-title">Diagnóstico</h3>
+        <p class="proceso-phase-text">Todo proceso comienza con una lectura honesta de la realidad. Realizamos una evaluación estratégica integral del negocio: su estructura corporativa, su posición financiera real, su historial institucional y sus objetivos patrimoniales de mediano y largo plazo.</p>
+        <p class="proceso-phase-text" style="margin-top:1rem;">El diagnóstico no es un trámite. Es el fundamento sobre el que se construirá toda la estrategia financiera. Sin un diagnóstico riguroso, cualquier estructura que se diseñe después será frágil.</p>
+      </div>
+      <div class="proceso-detail-card">
+        <p class="proceso-phase-num">02</p>
+        <p class="proceso-phase-tag">Segunda Fase</p>
+        <h3 class="proceso-phase-title">Estructura</h3>
+        <p class="proceso-phase-text">Con el diagnóstico establecido, diseñamos la arquitectura financiera adecuada para los objetivos del cliente. Esto incluye el diseño de la estructura de capital, la optimización de riesgos corporativos, la preparación institucional y la alineación estratégica de todas las partes del ecosistema.</p>
+        <p class="proceso-phase-text" style="margin-top:1rem;">Una empresa bien estructurada no solo tiene más probabilidades de acceder a capital —accede a capital en mejores condiciones y con mayor control sobre el proceso.</p>
+      </div>
+      <div class="proceso-detail-card">
+        <p class="proceso-phase-num">03</p>
+        <p class="proceso-phase-tag">Tercera Fase</p>
+        <h3 class="proceso-phase-title">Negociación</h3>
+        <p class="proceso-phase-text">La firma gestiona directamente la interacción estratégica con bancos, inversionistas, fondos e instituciones financieras. No enviamos al cliente a negociar solo; participamos activamente en la estructuración de los acuerdos, alineando los intereses de todas las contrapartes hacia un cierre favorable.</p>
+        <p class="proceso-phase-text" style="margin-top:1rem;">Cuarenta años de presencia institucional en el sistema financiero mexicano se traducen en relaciones y criterio. Sabemos cómo presentar una operación y cómo defender las condiciones del cliente.</p>
+      </div>
+      <div class="proceso-detail-card">
+        <p class="proceso-phase-num">04</p>
+        <p class="proceso-phase-tag">Cuarta Fase</p>
+        <h3 class="proceso-phase-title">Ejecución</h3>
+        <p class="proceso-phase-text">La fase de ejecución es donde la disciplina estratégica se materializa. Gestionamos el cierre formal de las transacciones, la formalización de acuerdos y la protección activa del valor patrimonial del cliente en cada punto crítico del proceso.</p>
+        <p class="proceso-phase-text" style="margin-top:1rem;">El cierre no es el final del proceso. Es la culminación de meses de trabajo estructurado, y debe ejecutarse con la misma disciplina institucional que caracterizó cada etapa anterior.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-darker" style="text-align:center;">
+    <h2 class="section-title" style="max-width:680px;margin:0 auto 1.5rem;"><span class="accent">Un solo asesor. Un solo proceso.</span><br>Coherencia estratégica continua.</h2>
+    <p class="section-text" style="margin:0 auto 2.5rem;text-align:center;">El proceso está diseñado para mantener coherencia estratégica desde la primera conversación hasta el cierre de la operación. No hay transferencias entre equipos, no hay cambios de criterio, no hay pérdida de contexto.</p>
+    <button class="btn-primary" onclick="showPage('contacto')">Iniciar el Proceso →</button>
+  </section>
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand"><div class="nav-logo" style="cursor:default;"><div class="logo-mark">ВВ</div><div class="logo-text"><span class="logo-text-main">Bide Berria</span><span class="logo-text-sub">Asesores, S.A.P.I. de C.V.</span></div></div><p>Firma independiente de asesoría corporativa. México, con alcance institucional nacional e internacional.</p></div>
+      <div><p class="footer-col-title">Navegación</p><ul class="footer-links"><li onclick="showPage('home')">Inicio</li><li onclick="showPage('nosotros')">Nosotros</li><li onclick="showPage('servicios')">Servicios</li><li onclick="showPage('proceso')">Proceso</li><li onclick="showPage('contacto')">Contacto</li></ul></div>
+      <div><p class="footer-col-title">Servicios</p><ul class="footer-links"><li onclick="showPage('servicios')">Finanzas Corporativas y M&A</li><li onclick="showPage('servicios')">Financiamiento Empresarial</li><li onclick="showPage('servicios')">Plataforma KONNECT</li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>© 2025 Bide Berria Asesores, S.A.P.I. de C.V.</span><span>México · Alcance Internacional</span></div>
+  </footer>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     PAGE: CONTACTO
+══════════════════════════════════════ -->
+<div class="page" id="page-contacto">
+  <div class="nosotros-hero">
+    <div class="nosotros-hero-inner">
+      <p class="section-label">Contacto</p>
+      <h1>Iniciar una <span style="color:var(--gold);">Conversación Estratégica</span></h1>
+      <p style="font-size:19px;font-weight:400;line-height:1.8;color:rgba(255,255,255,0.90);margin-top:1.5rem;max-width:520px;">Las decisiones críticas exigen una alianza estratégica. El primer paso es una conversación confidencial con el equipo de Bide Berria.</p>
+    </div>
+  </div>
+
+  <div class="contact-section">
+    <div class="contact-grid">
+      <div>
+        <p class="section-label">Información de Contacto</p>
+        <h2 class="section-title" style="font-size:1.8rem;margin-bottom:2.5rem;">Bide Berria Asesores,<br><span class="accent">S.A.P.I. de C.V.</span></h2>
+        <div class="contact-info-item">
+          <span class="contact-info-icon">◆</span>
+          <div>
+            <p class="contact-info-label">Ubicación</p>
+            <p class="contact-info-value">México, D.F. · Alcance Nacional e Internacional</p>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <span class="contact-info-icon">◆</span>
+          <div>
+            <p class="contact-info-label">Especialidad</p>
+            <p class="contact-info-value">Asesoría Corporativa y Estructuración de Capital</p>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <span class="contact-info-icon">◆</span>
+          <div>
+            <p class="contact-info-label">Experiencia</p>
+            <p class="contact-info-value">Más de 40 años en el sistema financiero mexicano</p>
+          </div>
+        </div>
+        <div style="margin-top:3rem;padding:2rem;border:1px solid var(--border);background:rgba(201,169,110,0.03);">
+          <p style="font-family:var(--serif);font-style:italic;font-size:1rem;color:var(--gold-light);line-height:1.65;">Toda conversación inicial es confidencial. No existe ningún compromiso al iniciar el diálogo.</p>
+        </div>
+      </div>
+      <div>
+        <p class="section-label">Formulario de Contacto</p>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Nombre</label>
+            <input type="text" placeholder="Su nombre completo">
+          </div>
+          <div class="form-group">
+            <label>Empresa</label>
+            <input type="text" placeholder="Nombre de su empresa">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Correo Electrónico</label>
+            <input type="email" placeholder="correo@empresa.com">
+          </div>
+          <div class="form-group">
+            <label>Teléfono</label>
+            <input type="tel" placeholder="+52 55 0000 0000">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Área de Interés</label>
+          <select>
+            <option value="">Seleccionar servicio</option>
+            <option>Finanzas Corporativas y M&A</option>
+            <option>Financiamiento Empresarial</option>
+            <option>Originación y Canalización de Capital</option>
+            <option>Otro / No estoy seguro</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Mensaje</label>
+          <textarea placeholder="Describa brevemente su situación o la naturaleza de la operación que está considerando..."></textarea>
+        </div>
+        <button class="btn-primary" style="width:100%;justify-content:center;" onclick="handleFormSubmit()">Enviar Mensaje →</button>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand"><div class="nav-logo" style="cursor:default;"><div class="logo-mark">ВВ</div><div class="logo-text"><span class="logo-text-main">Bide Berria</span><span class="logo-text-sub">Asesores, S.A.P.I. de C.V.</span></div></div><p>Firma independiente de asesoría corporativa. México, con alcance institucional nacional e internacional.</p></div>
+      <div><p class="footer-col-title">Navegación</p><ul class="footer-links"><li onclick="showPage('home')">Inicio</li><li onclick="showPage('nosotros')">Nosotros</li><li onclick="showPage('servicios')">Servicios</li><li onclick="showPage('proceso')">Proceso</li><li onclick="showPage('contacto')">Contacto</li></ul></div>
+      <div><p class="footer-col-title">Servicios</p><ul class="footer-links"><li onclick="showPage('servicios')">Finanzas Corporativas y M&A</li><li onclick="showPage('servicios')">Financiamiento Empresarial</li><li onclick="showPage('servicios')">Plataforma KONNECT</li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>© 2025 Bide Berria Asesores, S.A.P.I. de C.V. Todos los derechos reservados.</span><span>México · Alcance Internacional</span></div>
+  </footer>
+</div>
+
+
+<script>
+  const pages = ['home','nosotros','servicios','proceso','contacto'];
+  
+  function showPage(id) {
+    pages.forEach(p => {
+      document.getElementById('page-' + p).classList.remove('active');
+      const navEl = document.getElementById('nav-' + p);
+      if (navEl) navEl.classList.remove('active');
+    });
+    document.getElementById('page-' + id).classList.add('active');
+    const navEl = document.getElementById('nav-' + id);
+    if (navEl) navEl.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function openMobileMenu() { document.getElementById('mobileMenu').classList.add('open'); }
+  function closeMobileMenu() { document.getElementById('mobileMenu').classList.remove('open'); }
+
+  function handleFormSubmit() {
+    alert('Gracias por su mensaje. Un miembro del equipo de Bide Berria se pondrá en contacto con usted a la brevedad.');
+  }
+
+  window.addEventListener('scroll', () => {
+    const nav = document.getElementById('mainNav');
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  });
+</script>
+</body>
+</html>
