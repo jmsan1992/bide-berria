@@ -124,13 +124,13 @@
   .hero-eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--gold); }
   .hero-title {
     font-family: var(--serif); font-weight: 400;
-    font-size: clamp(3.2rem, 5vw, 5rem);
+    font-size: clamp(2.2rem, 4vw, 4.5rem);
     line-height: 1.08; letter-spacing: -0.01em;
     color: var(--white); margin-bottom: 0.4rem;
   }
   .hero-title-accent {
     font-family: var(--serif); font-weight: 400;
-    font-size: clamp(1.3rem, 2vw, 1.8rem);
+    font-size: clamp(1.1rem, 1.8vw, 1.6rem);
     color: var(--gold); letter-spacing: 0.04em;
     margin-bottom: clamp(0.8rem, 2vh, 2.4rem);
   }
@@ -489,9 +489,23 @@
 
   /* ─── RESPONSIVE ─── */
   @media (max-width: 960px) {
-    .hero { grid-template-columns: 1fr; }
-    .hero-image-col { min-height: 320px; }
+    /* ── Hero tablet ── */
+    .hero {
+      grid-template-columns: 1fr;
+      grid-template-rows: 42vh 1fr;
+      height: auto; min-height: 100vh;
+      overflow: visible;
+    }
+    .hero-image-col { height: 42vh; min-height: unset; }
+    .hero-img { height: 100%; min-height: unset; }
+    .hero-content-col {
+      padding: 4rem 7% 2rem;
+      overflow: visible; justify-content: flex-start;
+    }
     .hero-content-col::before { display: none; }
+    .hero-title { font-size: clamp(1.8rem, 4.5vw, 2.6rem); }
+    .hero-title-accent { font-size: clamp(1rem, 2.2vw, 1.3rem); }
+    .hero-text { font-size: 17px; max-width: 100%; }
     .context-grid { grid-template-columns: 1fr; gap: 3rem; }
     .pilares-grid { grid-template-columns: 1fr; }
     .pilar-card + .pilar-card { border-left: 1px solid var(--border); border-top: none; }
@@ -514,10 +528,31 @@
     .form-row { grid-template-columns: 1fr; }
   }
   @media (max-width: 600px) {
-    section { padding: 5rem 5%; }
-    .proceso-grid { grid-template-columns: 1fr; }
+    section { padding: 3rem 5%; }
+    /* ── Hero móvil ── */
+    .hero {
+      grid-template-rows: 35vh 1fr;
+      min-height: 100vh;
+      padding-top: 64px;
+    }
+    .hero-image-col { display: none; }
+    .hero {
+      grid-template-rows: 1fr;
+      padding-top: 80px;
+    }
+    .hero-content-col { padding: 3rem 5% 2rem; }
+    .hero-title { font-size: clamp(1.6rem, 7vw, 2.2rem); }
+    .hero-title-accent { font-size: clamp(0.9rem, 3.5vw, 1.1rem); }
+    .hero-text { font-size: 15px; line-height: 1.65; }
+    .hero-credential-text { font-size: 15px; }
     .hero-btns { flex-direction: column; }
-    .btn-primary, .btn-outline { text-align: center; justify-content: center; }
+    .btn-primary, .btn-outline { text-align: center; justify-content: center; width: 100%; }
+    .proceso-grid { grid-template-columns: 1fr; }
+    .proceso-dot-wrap { margin-top: 2rem; }
+    .pilares-footer { display: none; }
+    .hero-title { font-size: 3.5rem; }
+    .context-visual { display: none; }
+    .cta-section { display: none; }
   }
 
   /* ─── ANIMATIONS ─── */
@@ -627,7 +662,7 @@
   <section class="section-mid" style="padding-bottom:0;">
     <div class="pilares-header">
       <p class="section-label">Nuestros Tres Pilares Integrados</p>
-      <h2 class="section-title">Todo lo que necesita para estructurar, financiar y cerrar — en un solo lugar.</h2>
+      <h2 class="section-title">El Acceso Que Su Empresa Necesita, <span class="accent">Cuando Lo Necesita</span></h2>
     </div>
     <div class="pilares-grid">
       <div class="pilar-card">
