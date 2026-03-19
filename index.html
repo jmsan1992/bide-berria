@@ -53,10 +53,10 @@
   .logo-mark {
     width: 44px; height: 44px;
     border: 1.5px solid var(--gold);
-    display: flex; align-items: center; justify-content: center;
-    font-family: var(--serif); font-size: 18px; font-weight: 600;
-    color: var(--gold); letter-spacing: -1px;
+    display: block;
     flex-shrink: 0;
+    object-fit: contain;
+    padding: 4px;
   }
   .logo-text { display: flex; flex-direction: column; line-height: 1; }
   .logo-text-main { font-family: var(--serif); font-size: 18px; font-weight: 500; letter-spacing: 0.06em; color: var(--white); }
@@ -356,9 +356,10 @@
   }
   .cta-logo-mark {
     width: 80px; height: 80px; border: 1.5px solid rgba(201,169,110,0.6);
-    display: flex; align-items: center; justify-content: center;
-    font-family: var(--serif); font-size: 32px; font-weight: 500;
-    color: rgba(201,169,110,0.8); margin: 0 auto 1rem;
+    display: block;
+    object-fit: contain; padding: 8px;
+    margin: 0 auto 1rem;
+    opacity: 0.8;
   }
   .cta-logo-name { font-family: var(--serif); font-size: 1.1rem; color: rgba(201,169,110,0.8); letter-spacing: 0.08em; }
   .cta-content {
@@ -547,7 +548,7 @@
 <!-- NAV -->
 <nav id="mainNav">
   <div class="nav-logo" onclick="showPage('home')">
-    <div class="logo-mark">ВВ</div>
+    <img class="logo-mark" src="images/logo.png" alt="Bide Berria">
     <div class="logo-text">
       <span class="logo-text-main">Bide Berria</span>
       <span class="logo-text-sub">Asesores</span>
@@ -698,7 +699,7 @@
   <div class="cta-section">
     <div class="cta-image">
       <div class="cta-logo-overlay">
-        <div class="cta-logo-mark">ВВ</div>
+        <img class="cta-logo-mark" src="images/logo.png" alt="Bide Berria">
         <p class="cta-logo-name">Bide Berria</p>
       </div>
     </div>
@@ -721,7 +722,7 @@
     <div class="footer-grid">
       <div class="footer-brand">
         <div class="nav-logo" style="cursor:default;">
-          <div class="logo-mark">ВВ</div>
+          <img class="logo-mark" src="images/logo.png" alt="Bide Berria">
           <div class="logo-text">
             <span class="logo-text-main">Bide Berria</span>
             <span class="logo-text-sub">Asesores, S.A.P.I. de C.V.</span>
@@ -824,7 +825,7 @@
   <footer>
     <div class="footer-grid">
       <div class="footer-brand">
-        <div class="nav-logo" style="cursor:default;"><div class="logo-mark">ВВ</div><div class="logo-text"><span class="logo-text-main">Bide Berria</span><span class="logo-text-sub">Asesores, S.A.P.I. de C.V.</span></div></div>
+        <div class="nav-logo" style="cursor:default;"><img class="logo-mark" src="images/logo.png" alt="Bide Berria"><div class="logo-text"><span class="logo-text-main">Bide Berria</span><span class="logo-text-sub">Asesores, S.A.P.I. de C.V.</span></div></div>
         <p>Firma independiente de asesoría corporativa. México, con alcance institucional nacional e internacional.</p>
       </div>
       <div><p class="footer-col-title">Navegación</p><ul class="footer-links"><li onclick="showPage('home')">Inicio</li><li onclick="showPage('nosotros')">Nosotros</li><li onclick="showPage('servicios')">Servicios</li><li onclick="showPage('proceso')">Proceso</li><li onclick="showPage('contacto')">Contacto</li></ul></div>
@@ -940,7 +941,7 @@
   </section>
   <footer>
     <div class="footer-grid">
-      <div class="footer-brand"><div class="nav-logo" style="cursor:default;"><div class="logo-mark">ВВ</div><div class="logo-text"><span class="logo-text-main">Bide Berria</span><span class="logo-text-sub">Asesores, S.A.P.I. de C.V.</span></div></div><p>Firma independiente de asesoría corporativa. México, con alcance institucional nacional e internacional.</p></div>
+      <div class="footer-brand"><div class="nav-logo" style="cursor:default;"><img class="logo-mark" src="images/logo.png" alt="Bide Berria"><div class="logo-text"><span class="logo-text-main">Bide Berria</span><span class="logo-text-sub">Asesores, S.A.P.I. de C.V.</span></div></div><p>Firma independiente de asesoría corporativa. México, con alcance institucional nacional e internacional.</p></div>
       <div><p class="footer-col-title">Navegación</p><ul class="footer-links"><li onclick="showPage('home')">Inicio</li><li onclick="showPage('nosotros')">Nosotros</li><li onclick="showPage('servicios')">Servicios</li><li onclick="showPage('proceso')">Proceso</li><li onclick="showPage('contacto')">Contacto</li></ul></div>
       <div><p class="footer-col-title">Servicios</p><ul class="footer-links"><li onclick="showPage('servicios')">Finanzas Corporativas y M&A</li><li onclick="showPage('servicios')">Financiamiento Empresarial</li><li onclick="showPage('servicios')">Plataforma KONNECT</li></ul></div>
     </div>
@@ -999,7 +1000,7 @@
   </section>
   <footer>
     <div class="footer-grid">
-      <div class="footer-brand"><div class="nav-logo" style="cursor:default;"><div class="logo-mark">ВВ</div><div class="logo-text"><span class="logo-text-main">Bide Berria</span><span class="logo-text-sub">Asesores, S.A.P.I. de C.V.</span></div></div><p>Firma independiente de asesoría corporativa. México, con alcance institucional nacional e internacional.</p></div>
+      <div class="footer-brand"><div class="nav-logo" style="cursor:default;"><img class="logo-mark" src="images/logo.png" alt="Bide Berria"><div class="logo-text"><span class="logo-text-main">Bide Berria</span><span class="logo-text-sub">Asesores, S.A.P.I. de C.V.</span></div></div><p>Firma independiente de asesoría corporativa. México, con alcance institucional nacional e internacional.</p></div>
       <div><p class="footer-col-title">Navegación</p><ul class="footer-links"><li onclick="showPage('home')">Inicio</li><li onclick="showPage('nosotros')">Nosotros</li><li onclick="showPage('servicios')">Servicios</li><li onclick="showPage('proceso')">Proceso</li><li onclick="showPage('contacto')">Contacto</li></ul></div>
       <div><p class="footer-col-title">Servicios</p><ul class="footer-links"><li onclick="showPage('servicios')">Finanzas Corporativas y M&A</li><li onclick="showPage('servicios')">Financiamiento Empresarial</li><li onclick="showPage('servicios')">Plataforma KONNECT</li></ul></div>
     </div>
@@ -1092,7 +1093,7 @@
   </div>
   <footer>
     <div class="footer-grid">
-      <div class="footer-brand"><div class="nav-logo" style="cursor:default;"><div class="logo-mark">ВВ</div><div class="logo-text"><span class="logo-text-main">Bide Berria</span><span class="logo-text-sub">Asesores, S.A.P.I. de C.V.</span></div></div><p>Firma independiente de asesoría corporativa. México, con alcance institucional nacional e internacional.</p></div>
+      <div class="footer-brand"><div class="nav-logo" style="cursor:default;"><img class="logo-mark" src="images/logo.png" alt="Bide Berria"><div class="logo-text"><span class="logo-text-main">Bide Berria</span><span class="logo-text-sub">Asesores, S.A.P.I. de C.V.</span></div></div><p>Firma independiente de asesoría corporativa. México, con alcance institucional nacional e internacional.</p></div>
       <div><p class="footer-col-title">Navegación</p><ul class="footer-links"><li onclick="showPage('home')">Inicio</li><li onclick="showPage('nosotros')">Nosotros</li><li onclick="showPage('servicios')">Servicios</li><li onclick="showPage('proceso')">Proceso</li><li onclick="showPage('contacto')">Contacto</li></ul></div>
       <div><p class="footer-col-title">Servicios</p><ul class="footer-links"><li onclick="showPage('servicios')">Finanzas Corporativas y M&A</li><li onclick="showPage('servicios')">Financiamiento Empresarial</li><li onclick="showPage('servicios')">Plataforma KONNECT</li></ul></div>
     </div>
