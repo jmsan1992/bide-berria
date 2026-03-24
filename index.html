@@ -1090,26 +1090,26 @@
         <div class="form-row">
           <div class="form-group">
             <label>Nombre</label>
-            <input type="text" placeholder="Su nombre completo">
+            <input id="cf-nombre" type="text" placeholder="Su nombre completo">
           </div>
           <div class="form-group">
             <label>Empresa</label>
-            <input type="text" placeholder="Nombre de su empresa">
+            <input id="cf-empresa" type="text" placeholder="Nombre de su empresa">
           </div>
         </div>
         <div class="form-row">
           <div class="form-group">
             <label>Correo Electrónico</label>
-            <input type="email" placeholder="correo@empresa.com">
+            <input id="cf-email" type="email" placeholder="correo@empresa.com">
           </div>
           <div class="form-group">
             <label>Teléfono</label>
-            <input type="tel" placeholder="+52 55 0000 0000">
+            <input id="cf-telefono" type="tel" placeholder="+52 55 0000 0000">
           </div>
         </div>
         <div class="form-group">
           <label>Área de Interés</label>
-          <select>
+          <select id="cf-servicio">
             <option value="">Seleccionar servicio</option>
             <option>Finanzas Corporativas y M&A</option>
             <option>Financiamiento Empresarial</option>
@@ -1119,9 +1119,12 @@
         </div>
         <div class="form-group">
           <label>Mensaje</label>
-          <textarea placeholder="Describa brevemente su situación o la naturaleza de la operación que está considerando..."></textarea>
+          <textarea id="cf-mensaje" placeholder="Describa brevemente su situación o la naturaleza de la operación que está considerando..."></textarea>
         </div>
-        <button class="btn-primary" style="width:100%;justify-content:center;" onclick="handleFormSubmit()">Enviar Mensaje →</button>
+        <button id="cf-submit" class="btn-primary" style="width:100%;justify-content:center;" onclick="handleFormSubmit()">Enviar Mensaje →</button>
+        <div id="cf-success" style="display:none;margin-top:1.5rem;padding:1.2rem 1.5rem;border:1px solid var(--gold);background:rgba(201,169,110,0.07);color:var(--gold-light);font-family:var(--serif);font-style:italic;font-size:1rem;line-height:1.6;">
+          Gracias por su mensaje. Un miembro del equipo de Bide Berria se pondrá en contacto con usted a la brevedad.
+        </div>
       </div>
     </div>
   </div>
@@ -1155,7 +1158,40 @@
   function closeMobileMenu() { document.getElementById('mobileMenu').classList.remove('open'); }
 
   function handleFormSubmit() {
-    alert('Gracias por su mensaje. Un miembro del equipo de Bide Berria se pondrá en contacto con usted a la brevedad.');
+    const params = new URLSearchParams(window.location.search);
+    const fuente = params.get('utm_source') || 'Orgánico web';
+    const campana = params.get('utm_campaign') || '';
+
+    const payload = {
+      nombre:   document.getElementById('cf-nombre').value.trim(),
+      empresa:  document.getElementById('cf-empresa').value.trim(),
+      email:    document.getElementById('cf-email').value.trim(),
+      telefono: document.getElementById('cf-telefono').value.trim(),
+      servicio: document.getElementById('cf-servicio').value,
+      mensaje:  document.getElementById('cf-mensaje').value.trim(),
+      fuente,
+      campana
+    };
+
+    const btn = document.getElementById('cf-submit');
+    btn.disabled = true;
+    btn.textContent = 'Enviando…';
+
+    fetch('https://hook.eu1.make.com/o0s1vt2wtk10lml3e73fj7hipit9oj27', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+    .then(res => {
+      if (!res.ok) throw new Error('Error ' + res.status);
+      document.getElementById('cf-success').style.display = 'block';
+      btn.style.display = 'none';
+    })
+    .catch(() => {
+      btn.disabled = false;
+      btn.textContent = 'Enviar Mensaje →';
+      alert('Hubo un error al enviar. Por favor intente de nuevo o contáctenos directamente.');
+    });
   }
 
   window.addEventListener('scroll', () => {
